@@ -1,11 +1,10 @@
-
 import React from 'react';
 import API from './REST-API/settings'
 
 
-import { 
-  Typography, 
-  Container, 
+import {
+  Typography,
+  Container,
   Avatar,
   Paper,
   Grid,
@@ -77,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
 }));
- 
+
 const userService = new UserService();
 const articleService = new ArticleService();
 
@@ -114,8 +113,8 @@ export default function Author(props) {
     }
   }
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => { 
-    if (token) setOpen(true); 
+  const handleOpen = () => {
+    if (token) setOpen(true);
   };
   const createNewArticle = (event) => {
     setRedirect(`/editor/${pk}/`);
@@ -140,15 +139,15 @@ export default function Author(props) {
           <Tab label="Articles" />
           <Tab label="Followers" />
           <Tab label="Editor" />
-          
+
         </Tabs>
       </Paper>
       </Container>
-      <Grid container className={classes.grid}>
+      <Grid container className={classes.grid} spacing={3}>
       <Profile user={user} setUser={setUser} open={open} setOpen={setOpen}/>
-      <Grid item lg={3}>
+      <Grid item lg={4} xs={12}>
           <Card>
-            
+
           <CardActionArea onClick={handleOpen}>
           <CardHeader
             avatar={<Avatar className={classes.avatar} src={avatar}></Avatar>}
@@ -159,25 +158,25 @@ export default function Author(props) {
               {user.description}
           </Typography>
           </CardContent>
-          
+
         </CardActionArea>
         <CardActions>
           {
-            (token == pk) && 
+            (token == pk) &&
               <IconButton onClick={createNewArticle}>
                 <AddIcon></AddIcon>
                 <Typography>  Create new article</Typography>
               </IconButton>
           }
           {
-            (token != pk && !follow) && 
+            (token != pk && !follow) &&
               <IconButton onClick={addFollower}>
                 <AddIcon></AddIcon>
                 <Typography>  Follow</Typography>
               </IconButton>
           }
           {
-            (token != pk && follow) && 
+            (token != pk && follow) &&
               <IconButton>
                 <Typography>You are follower</Typography>
               </IconButton>
@@ -185,13 +184,13 @@ export default function Author(props) {
         </CardActions>
         </Card>
       </Grid>
-      <Grid item lg={9}>
+      <Grid item lg={8} xs={12}>
       <Container maxWidth="lg">
         {
           (articles && value == 0) &&
           <Grid container spacing={4}>
           {articles.map((article) => (
-            <Grid item key={article.pk} lg={12}>
+            <Grid item key={article.pk} lg={10}>
               <Preview2 article={{
                 pk: article.pk,
                 views: article.views,
@@ -209,12 +208,12 @@ export default function Author(props) {
           (value == 2 && token == pk) && <Editor token={token} setToken={setToken} profile={true}></Editor>
         }
         {
-          (value == 2 && token != pk) && 
+          (value == 2 && token != pk) &&
           <Typography className={classes.content} color="secondary" variant='h4' align='center'>
           To create new article you should sign in</Typography>
         }
         {
-          (followers && value == 1) && 
+          (followers && value == 1) &&
           <Grid container spacing={4}>
           {followers.map((follower) => (
             <Grid item key={follower.pk} xs={12}>
@@ -231,7 +230,7 @@ export default function Author(props) {
           </Grid>
         }
       </Container>
-      </Grid>     
+      </Grid>
       </Grid>
       </>
     );
